@@ -3,6 +3,7 @@ package com.eblink.android.app.injection;
 import android.content.Context;
 
 import com.eblink.android.app.EBlinkApp;
+import com.eblink.android.utils.PreferencesUtils;
 
 import javax.inject.Singleton;
 
@@ -14,4 +15,7 @@ public interface AppComponent {
     Context getAppContext();
 
     EBlinkApp getApp();
+
+    PreferencesUtils exposePreferencesUtils();
+
 }
