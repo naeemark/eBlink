@@ -1,4 +1,4 @@
-package com.eblink.android.presenter;
+package com.eblink.android.app.presenter;
 
 import android.support.annotation.NonNull;
 

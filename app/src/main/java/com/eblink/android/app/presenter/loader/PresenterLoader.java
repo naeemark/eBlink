@@ -1,11 +1,11 @@
-package com.eblink.android.presenter.loader;
+package com.eblink.android.app.presenter.loader;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 
-import com.eblink.android.presenter.BasePresenter;
+import com.eblink.android.app.presenter.BasePresenter;
 
 /**
  * Loader that implements the loading of a Presenter, made to persist on activity recreation

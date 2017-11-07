@@ -1,21 +1,21 @@
-package com.eblink.android.view.impl;
+package com.eblink.android.app.view.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 
-import com.eblink.android.EBlinkApp;
-import com.eblink.android.presenter.loader.PresenterFactory;
-import com.eblink.android.presenter.loader.PresenterLoader;
-import com.eblink.android.injection.AppComponent;
-import com.eblink.android.presenter.BasePresenter;
+import com.eblink.android.app.EBlinkApp;
+import com.eblink.android.app.presenter.loader.PresenterFactory;
+import com.eblink.android.app.presenter.loader.PresenterLoader;
+import com.eblink.android.app.injection.AppComponent;
+import com.eblink.android.app.presenter.BasePresenter;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragment implements LoaderManager.LoaderCallbacks<P> {
+public abstract class BaseActivity<P extends BasePresenter<V>, V> extends AppCompatActivity implements LoaderManager.LoaderCallbacks<P> {
     /**
      * Do we need to call {@link #doStart()} from the {@link #onLoadFinished(Loader, BasePresenter)} method.
      * Will be true if presenter wasn't loaded when {@link #onStart()} is reached
@@ -27,32 +27,27 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragme
     @Nullable
     protected P mPresenter;
     /**
-     * Is this the first start of the fragment (after onCreate)
+     * Is this the first start of the activity (after onCreate)
      */
     private boolean mFirstStart;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mFirstStart = true;
 
         injectDependencies();
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        getLoaderManager().initLoader(0, null, this).startLoading();
+        getSupportLoaderManager().initLoader(0, null, this).startLoading();
     }
 
     private void injectDependencies() {
-        setupComponent(((EBlinkApp) getActivity().getApplication()).getAppComponent());
+        setupComponent(((EBlinkApp) getApplication()).getAppComponent());
     }
 
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
 
         if (mPresenter == null) {
@@ -77,7 +72,7 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragme
     }
 
     @Override
-    public void onStop() {
+    protected void onStop() {
         if (mPresenter != null) {
             mPresenter.onStop();
 
@@ -89,7 +84,7 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragme
 
     @Override
     public final Loader<P> onCreateLoader(int id, Bundle args) {
-        return new PresenterLoader<>(getActivity(), getPresenterFactory());
+        return new PresenterLoader<>(this, getPresenterFactory());
     }
 
     @Override

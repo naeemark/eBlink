@@ -1,9 +1,9 @@
-package com.eblink.android.injection;
+package com.eblink.android.app.injection;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.eblink.android.EBlinkApp;
+import com.eblink.android.app.EBlinkApp;
 
 import dagger.Module;
 import dagger.Provides;

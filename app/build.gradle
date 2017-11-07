@@ -26,7 +26,7 @@ dependencies {
     final FAV_BTN_VERSION = '0.1.4'
     final GLIDE_VERSION = '3.7.0'
     final JUNIT_VERSION = '4.12'
-    final DAGGER_VERSION = '2.9'
+    final DAGGER_VERSION = '2.11'
     final MOCKITO_VERSION = '2.7.0'
     final ESPRESSO_VERSION = '3.0.1'
 

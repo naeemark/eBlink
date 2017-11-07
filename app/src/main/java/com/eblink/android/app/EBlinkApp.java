@@ -1,11 +1,12 @@
-package com.eblink.android;
+package com.eblink.android.app;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.eblink.android.injection.AppComponent;
-import com.eblink.android.injection.AppModule;
-import com.eblink.android.injection.DaggerAppComponent;
+import com.eblink.android.BuildConfig;
+import com.eblink.android.app.injection.AppComponent;
+import com.eblink.android.app.injection.AppModule;
+import com.eblink.android.app.injection.DaggerAppComponent;
 
 import timber.log.Timber;
 

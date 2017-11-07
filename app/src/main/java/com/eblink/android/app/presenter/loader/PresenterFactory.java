@@ -1,8 +1,8 @@
-package com.eblink.android.presenter.loader;
+package com.eblink.android.app.presenter.loader;
 
 import android.support.annotation.NonNull;
 
-import com.eblink.android.presenter.BasePresenter;
+import com.eblink.android.app.presenter.BasePresenter;
 
 /**
  * Factory to implement to create a presenter

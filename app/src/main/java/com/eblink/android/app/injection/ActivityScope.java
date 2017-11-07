@@ -1,4 +1,4 @@
-package com.eblink.android.injection;
+package com.eblink.android.app.injection;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,5 +7,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FragmentScope {
+public @interface ActivityScope {
 }

@@ -1,9 +1,9 @@
-package com.eblink.android.presenter.impl;
+package com.eblink.android.app.presenter.impl;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.eblink.android.presenter.BasePresenter;
+import com.eblink.android.app.presenter.BasePresenter;
 
 /**
  * Abstract presenter implementation that contains base implementation for other presenters.
