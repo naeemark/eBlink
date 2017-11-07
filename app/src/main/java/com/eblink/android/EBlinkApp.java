@@ -7,12 +7,19 @@ import com.eblink.android.injection.AppComponent;
 import com.eblink.android.injection.AppModule;
 import com.eblink.android.injection.DaggerAppComponent;
 
+import timber.log.Timber;
+
 public final class EBlinkApp extends Application {
     private AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Shows logs only in Debug Build type
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
 
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
