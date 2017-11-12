@@ -12,4 +12,5 @@ public class AppConstants {
 
     public static final String SHARED_PREFS_NAME = "This_app_Prefs";
 
+    public static final String DATABASE_NAME = "books_database";
 }
