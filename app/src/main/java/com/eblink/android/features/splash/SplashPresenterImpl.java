@@ -4,11 +4,13 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.eblink.android.app.presenter.impl.BasePresenterImpl;
-import com.eblink.android.constants.AppConstants;
+import com.eblink.android.database.DatabasQueryResponseListener;
 
 import javax.inject.Inject;
 
-public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> implements SplashPresenter, Runnable {
+import timber.log.Timber;
+
+public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> implements SplashPresenter, Runnable, DatabasQueryResponseListener {
 
     @NonNull
     private final SplashInteractor mInteractor;
@@ -25,11 +27,12 @@ public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> imp
 
         if (viewCreated) {
             startLoading();
-            if (!mInteractor.isSplashDone()) {
-                doSplash();
-            } else {
-                launchNextActivity();
-            }
+//            if (!mInteractor.isSplashDone()) {
+//                doSplash();
+//            } else {
+//                launchNextActivity();
+//            }
+            doSplash();
         }
     }
 
@@ -54,8 +57,11 @@ public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> imp
 
     @Override
     public void doSplash() {
-        mHandler.postDelayed(this, AppConstants.SPLASH_TIME_MILLI_SECONDS);
-        mInteractor.setSpalshDone();
+//        mHandler.postDelayed(this, AppConstants.SPLASH_TIME_MILLI_SECONDS);
+//        mInteractor.setSpalshDone();
+
+
+        mInteractor.isDataAvailable(this);
     }
 
     @Override
@@ -76,5 +82,10 @@ public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> imp
     @Override
     public void run() {
         launchNextActivity();
+    }
+
+    @Override
+    public void onCheckDataExistance(boolean flag) {
+        Timber.e("isDataAvailable: " + flag);
     }
 }

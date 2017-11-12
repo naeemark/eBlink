@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.eblink.android.R;
 import com.eblink.android.app.interactor.impl.BaseInteractorImpl;
+import com.eblink.android.database.DatabasQueryResponseListener;
+import com.eblink.android.database.dao.AppDatabase;
 import com.eblink.android.utils.NetworkUtils;
 import com.eblink.android.utils.PreferencesUtils;
 
@@ -14,11 +16,13 @@ public final class SplashInteractorImpl extends BaseInteractorImpl implements Sp
     private final Context mContext;
 
     private final PreferencesUtils mPreferencesUtils;
+    private AppDatabase mAppDatabase;
 
     @Inject
-    public SplashInteractorImpl(Context context, PreferencesUtils preferencesUtils) {
+    public SplashInteractorImpl(Context context, PreferencesUtils preferencesUtils, AppDatabase appDatabase) {
         this.mContext = context;
         this.mPreferencesUtils = preferencesUtils;
+        this.mAppDatabase = appDatabase;
     }
 
     @Override
@@ -40,6 +44,11 @@ public final class SplashInteractorImpl extends BaseInteractorImpl implements Sp
     public void setSpalshDone() {
         mPreferencesUtils.putBoolean(PreferencesUtils.PrefKeys.IS_SPLASH_DONE.name(), true);
 
+    }
+
+    @Override
+    public void isDataAvailable(DatabasQueryResponseListener listener) {
+        listener.onCheckDataExistance(mAppDatabase.bookDao().getCount() != 0);
     }
 
 }

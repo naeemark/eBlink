@@ -10,6 +10,7 @@ import dagger.Provides;
 
 @Module
 public final class AppModule {
+
     @NonNull
     private final EBlinkApp mApp;
 
@@ -26,4 +27,5 @@ public final class AppModule {
     public EBlinkApp provideApp() {
         return mApp;
     }
+
 }
