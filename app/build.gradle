@@ -12,11 +12,30 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            // storeFile file('keystores/release.keystore')
+            // keyAlias ...
+            // storePassword ...
+            // keyPassword ...
+        }
+        debug {
+            storeFile file('keystores/ks-debug.jks')
+            keyAlias 'AppDebug'
+            storePassword 'android'
+            keyPassword 'android'
+        }
+    }
+
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        renameBuildFile()
     }
 
     packagingOptions {
@@ -33,6 +52,20 @@ android {
         exclude 'META-INF/RXJAVA.PROPERTIES'
         exclude 'META-INF/rxjava'
         exclude 'META-INF/RXJAVA'
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+def renameBuildFile() {
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def newName = rootProject.name + "-${variant.name}-v${variant.versionName}-" + new Date().format('ddMMyy') + ".apk"
+            outputFileName = newName
+        }
     }
 }
 

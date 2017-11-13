@@ -1,20 +1,17 @@
 package com.eblink.android.features.splash;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.eblink.android.app.presenter.impl.BasePresenterImpl;
-import com.eblink.android.database.DatabaseQueryResponseListener;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> implements SplashPresenter, Runnable, DatabaseQueryResponseListener {
+public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> implements SplashPresenter {
 
     @NonNull
     private final SplashInteractor mInteractor;
-    private Handler mHandler = new Handler();
 
     @Inject
     public SplashPresenterImpl(@NonNull SplashInteractor interactor) {
@@ -26,19 +23,12 @@ public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> imp
         super.onStart(viewCreated);
 
         if (viewCreated) {
-            startLoading();
-//            if (!mInteractor.isSplashDone()) {
-//                doSplash();
-//            } else {
-//                launchNextActivity();
-//            }
             doSplash();
         }
     }
 
     @Override
     public void onStop() {
-        mHandler.removeCallbacks(this);
         super.onStop();
     }
 
@@ -57,10 +47,7 @@ public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> imp
 
     @Override
     public void doSplash() {
-//        mHandler.postDelayed(this, AppConstants.SPLASH_TIME_MILLI_SECONDS);
-//        mInteractor.setSpalshDone();
-
-
+        startLoading();
         mInteractor.isDataAvailable(this);
     }
 
@@ -76,16 +63,27 @@ public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> imp
     public void launchNextActivity() {
         assert mView != null;
         mView.launchNextActivity();
-//        stopLoading();
+        stopLoading();
     }
 
     @Override
-    public void run() {
+    public void onCheckDataExistence(boolean flag) {
+        Timber.e("isDataAvailable: " + flag);
+        if (flag) {
+            launchNextActivity();
+        } else {
+            mInteractor.initializeDatabase(this);
+        }
+    }
+
+    @Override
+    public void onDatabaseInitialized() {
         launchNextActivity();
     }
 
     @Override
-    public void onCheckDataExistance(boolean flag) {
-        Timber.e("isDataAvailable: " + flag);
+    public void onDatabaseInitializeFailed() {
+        // TODO: 13/11/2017 Show uiError
+
     }
 }

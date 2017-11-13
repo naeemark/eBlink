@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.eblink.android.app.presenter.loader.PresenterFactory;
 import com.eblink.android.database.dao.AppDatabase;
+import com.eblink.android.utils.BookRepository;
 import com.eblink.android.utils.PreferencesUtils;
 
 import dagger.Module;
@@ -14,8 +15,8 @@ import dagger.Provides;
 public final class SplashViewModule {
 
     @Provides
-    public SplashInteractor provideInteractor(Context context, PreferencesUtils preferencesUtils, AppDatabase appDatabase) {
-        return new SplashInteractorImpl(context, preferencesUtils, appDatabase);
+    public SplashInteractor provideInteractor(Context context, PreferencesUtils preferencesUtils, AppDatabase appDatabase, BookRepository bookRepository) {
+        return new SplashInteractorImpl(context, preferencesUtils, appDatabase, bookRepository);
     }
 
     @Provides
