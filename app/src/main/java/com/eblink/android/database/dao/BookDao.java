@@ -10,6 +10,8 @@ import com.eblink.android.model.entity.Book;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 /**
  * Implementation of CRUD for the entity
  *
@@ -25,11 +27,14 @@ public interface BookDao {
     List<Book> retrieveAll();
 
     @Query("SELECT COUNT(*) from books")
-    int getCount();
+    Flowable<Integer> getCount();
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Book... books);
 
     @Delete
     void delete(Book book);
+
+    @Query("SELECT * from books LIMIT 1")
+    Flowable<Book> retrieveBook();
 }

@@ -2,11 +2,12 @@ package com.eblink.android.app.interactor.impl;
 
 import com.eblink.android.app.interactor.BaseInteractor;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.Subscriptions;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -16,27 +17,28 @@ import timber.log.Timber;
 
 public class BaseInteractorImpl implements BaseInteractor {
 
-    public Subscription mSubscription = Subscriptions.empty();
+    private final CompositeDisposable mDisposable = new CompositeDisposable();
 
     @Override
-    public <T> void subscribe(Observable<T> observable, Observer<T> observer) {
-        mSubscription =  observable.subscribeOn(Schedulers.newThread())
-                .toSingle()
-//                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+    public <T> void subscribe(Flowable<T> flowable, Consumer<T> consumer) {
+        Disposable disposable = flowable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(consumer);
+        mDisposable.add(disposable);
     }
 
     @Override
     public void unsubscribe() {
-        if (!mSubscription.isUnsubscribed()) {
-            Timber.i("mSubscription.unSubscribe()");
-            mSubscription.unsubscribe();
+        if (!mDisposable.isDisposed()) {
+            Timber.i("mDisposable.dispose()");
+            mDisposable.dispose();
+            mDisposable.clear();
         }
     }
 
     @Override
-    public void cancelOnGoingHttpRequest() {
-        Timber.i("cancelOnGoingHttpRequest()");
+    public void cancelOnGoingRequest() {
+        Timber.i("cancelOnGoingRequest()");
         unsubscribe();
     }
 }

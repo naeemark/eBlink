@@ -9,14 +9,10 @@ import com.eblink.android.database.dao.AppDatabase;
 import com.eblink.android.utils.NetworkUtils;
 import com.eblink.android.utils.PreferencesUtils;
 
-import java.util.concurrent.Callable;
-
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 
 public final class SplashInteractorImpl extends BaseInteractorImpl implements SplashInteractor {
@@ -51,30 +47,19 @@ public final class SplashInteractorImpl extends BaseInteractorImpl implements Sp
     @Override
     public void setSpalshDone() {
         mPreferencesUtils.putBoolean(PreferencesUtils.PrefKeys.IS_SPLASH_DONE.name(), true);
-
     }
 
     @Override
     public void isDataAvailable(final DatabaseQueryResponseListener listener) {
-//        listener.onCheckDataExistance(mAppDatabase.bookDao().getCount() != 0);
 
+        Flowable<Integer> flowable = mAppDatabase.bookDao().getCount();
 
-        Observable.fromCallable(new Callable<Boolean>() {
+        subscribe(flowable, new Consumer<Integer>() {
             @Override
-            public Boolean call() throws Exception {
-                return mAppDatabase.bookDao().getCount() != 0;
+            public void accept(Integer integer) throws Exception {
+                listener.onCheckDataExistance(integer != 0);
             }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        Timber.e("Result: " + aBoolean);
-                        listener.onCheckDataExistance(mAppDatabase.bookDao().getCount() != 0);
-                    }
-                });
-
-
+        });
     }
 
 }
