@@ -12,7 +12,7 @@ public interface SplashInteractor extends BaseInteractor {
 
     boolean isSplashDone();
 
-    void setSpalshDone();
+    void setSplashDone();
 
     void isDataAvailable(Retrievable.DatabaseInitializer listener);
 
