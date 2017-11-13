@@ -2,6 +2,7 @@ package com.eblink.android.features.splash;
 
 
 import com.eblink.android.app.interactor.BaseInteractor;
+import com.eblink.android.database.Retrievable;
 
 public interface SplashInteractor extends BaseInteractor {
 
@@ -11,5 +12,9 @@ public interface SplashInteractor extends BaseInteractor {
 
     boolean isSplashDone();
 
-    void setSpalshDone();
+    void setSplashDone();
+
+    void isDataAvailable(Retrievable.DatabaseInitializer listener);
+
+    void initializeDatabase(Retrievable.DatabaseInitializer listener);
 }

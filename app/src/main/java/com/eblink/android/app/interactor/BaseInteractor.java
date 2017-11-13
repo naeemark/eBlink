@@ -1,14 +1,13 @@
 package com.eblink.android.app.interactor;
 
-import rx.Observable;
-import rx.Observer;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 
 public interface BaseInteractor {
 
-    <T> void subscribe(Observable<T> observable, Observer<T> observer);
+    <T> void subscribe(Flowable<T> flowable, Consumer<T> consumer);
 
     void unsubscribe();
 
-    void cancelOnGoingHttpRequest();
-
+    void cancelOnGoingRequest();
 }
