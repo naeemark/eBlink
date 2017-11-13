@@ -15,7 +15,7 @@ import com.eblink.android.model.entity.Book;
  * For eBlink
  */
 
-@Database(entities = {Book.class}, version = 1)
+@Database(entities = {Book.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -25,8 +25,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, AppConstants.DATABASE_NAME)
-                            .allowMainThreadQueries()
+                    Room.databaseBuilder(context, AppDatabase.class, AppConstants.DATABASE_NAME)
                             .build();
         }
         return INSTANCE;

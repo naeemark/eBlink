@@ -4,13 +4,13 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.eblink.android.app.presenter.impl.BasePresenterImpl;
-import com.eblink.android.database.DatabasQueryResponseListener;
+import com.eblink.android.database.DatabaseQueryResponseListener;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> implements SplashPresenter, Runnable, DatabasQueryResponseListener {
+public final class SplashPresenterImpl extends BasePresenterImpl<SplashView> implements SplashPresenter, Runnable, DatabaseQueryResponseListener {
 
     @NonNull
     private final SplashInteractor mInteractor;

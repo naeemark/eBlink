@@ -7,6 +7,6 @@ package com.eblink.android.database;
  * For eBlink
  */
 
-public interface DatabasQueryResponseListener {
+public interface DatabaseQueryResponseListener {
     void onCheckDataExistance(boolean flag);
 }

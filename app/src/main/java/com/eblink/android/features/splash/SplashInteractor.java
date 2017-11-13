@@ -2,7 +2,7 @@ package com.eblink.android.features.splash;
 
 
 import com.eblink.android.app.interactor.BaseInteractor;
-import com.eblink.android.database.DatabasQueryResponseListener;
+import com.eblink.android.database.DatabaseQueryResponseListener;
 
 public interface SplashInteractor extends BaseInteractor {
 
@@ -14,5 +14,5 @@ public interface SplashInteractor extends BaseInteractor {
 
     void setSpalshDone();
 
-    void isDataAvailable(DatabasQueryResponseListener listener);
+    void isDataAvailable(DatabaseQueryResponseListener listener);
 }
