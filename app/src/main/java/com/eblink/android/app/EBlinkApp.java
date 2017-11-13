@@ -7,6 +7,7 @@ import com.eblink.android.BuildConfig;
 import com.eblink.android.app.injection.AppComponent;
 import com.eblink.android.app.injection.AppModule;
 import com.eblink.android.app.injection.DaggerAppComponent;
+import com.eblink.android.app.injection.DatabaseModule;
 
 import timber.log.Timber;
 
@@ -24,6 +25,7 @@ public final class EBlinkApp extends Application {
 
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
+                .databaseModule(new DatabaseModule())
                 .build();
     }
 
