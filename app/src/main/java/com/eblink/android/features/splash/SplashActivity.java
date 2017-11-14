@@ -10,6 +10,7 @@ import com.eblink.android.R;
 import com.eblink.android.app.injection.AppComponent;
 import com.eblink.android.app.presenter.loader.PresenterFactory;
 import com.eblink.android.app.view.impl.BaseActivity;
+import com.eblink.android.features.catalog.view.impl.CatalogActivity;
 
 import javax.inject.Inject;
 
@@ -65,7 +66,8 @@ public final class SplashActivity extends BaseActivity<SplashPresenter, SplashVi
 
     @Override
     public void launchNextActivity() {
-        // Todo: Launch next activity
+        Intent intent = new Intent(this, CatalogActivity.class);
+        startActivity(intent);
     }
 
     @Override

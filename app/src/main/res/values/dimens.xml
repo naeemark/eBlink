@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="splash_logo_width_height">200dp</dimen>
+    <dimen name="splash_logo_width_height">256dp</dimen>
 
     <dimen name="margin_padding_minimal">5dp</dimen>
     <dimen name="margin_padding_average">10dp</dimen>
