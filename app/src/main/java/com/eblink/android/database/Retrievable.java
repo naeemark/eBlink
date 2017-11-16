@@ -1,5 +1,9 @@
 package com.eblink.android.database;
 
+import com.eblink.android.model.entity.Book;
+
+import java.util.List;
+
 /**
  * An Interface to provide callback functions for Database queries
  * Created by Naeem(naeemark@gmail.com)
@@ -16,6 +20,11 @@ public interface Retrievable {
         void onDatabaseInitialized();
 
         void onDatabaseInitializeFailed();
+    }
+
+    interface DatabaseQueryListener {
+
+        void onDatabaseRetrieved(List<Book> list);
     }
 
 }

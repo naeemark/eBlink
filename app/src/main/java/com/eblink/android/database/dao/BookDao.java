@@ -24,7 +24,7 @@ import io.reactivex.Flowable;
 public interface BookDao {
 
     @Query("SELECT * FROM books")
-    List<Book> retrieveAll();
+    Flowable<List<Book>> retrieveAll();
 
     @Query("SELECT COUNT(*) from books")
     Flowable<Integer> getCount();

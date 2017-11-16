@@ -27,5 +27,7 @@
 
     <dimen name="height_details_logo">256dp</dimen>
 
+    <dimen name="width_height_dp">144dp</dimen>
+
 
 </resources>

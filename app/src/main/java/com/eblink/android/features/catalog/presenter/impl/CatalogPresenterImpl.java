@@ -6,17 +6,16 @@ import com.eblink.android.app.presenter.impl.BasePresenterImpl;
 import com.eblink.android.features.catalog.interactor.CatalogInteractor;
 import com.eblink.android.features.catalog.presenter.CatalogPresenter;
 import com.eblink.android.features.catalog.view.CatalogView;
+import com.eblink.android.model.entity.Book;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> implements CatalogPresenter {
-    /**
-     * The interactor
-     */
+
     @NonNull
     private final CatalogInteractor mInteractor;
-
-    // The view is available using the mView variable
 
     @Inject
     public CatalogPresenterImpl(@NonNull CatalogInteractor interactor) {
@@ -27,23 +26,23 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     public void onStart(boolean viewCreated) {
         super.onStart(viewCreated);
 
-        // Your code here. Your view is available using mView and will not be null until next onStop()
+        if(viewCreated){
+            loadList();
+        }
     }
 
     @Override
     public void onStop() {
-        // Your code here, mView will be null after this method until next onStart()
-
+        mInteractor.cancelOnGoingRequest();
         super.onStop();
     }
 
-    @Override
-    public void onPresenterDestroyed() {
-        /*
-         * Your code here. After this method, your presenter (and view) will be completely destroyed
-         * so make sure to cancel any HTTP call or database connection
-         */
+    private void loadList() {
+        mInteractor.fetchData(this);
+    }
 
-        super.onPresenterDestroyed();
+    @Override
+    public void onDatabaseRetrieved(List<Book> list) {
+        mView.loadList(list);
     }
 }
