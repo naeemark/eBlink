@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.eblink.android.R;
 import com.eblink.android.model.entity.Book;
+import com.eblink.android.utils.ImageUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +44,8 @@ public class RecyclerViewItemHolder extends RecyclerView.ViewHolder {
 
     public RecyclerViewItemHolder(View itemView) {
         super(itemView);
+        mContext = itemView.getContext();
+
         ButterKnife.bind(this, itemView);
     }
 
@@ -53,5 +56,8 @@ public class RecyclerViewItemHolder extends RecyclerView.ViewHolder {
 
     private void setValues() {
         mNameTextView.setText(mBook.getTitle());
+
+        ImageUtils.loadImage(mContext, mLogoImageView, imageProgressBar,  mBook.getCoverUrl());
+
     }
 }

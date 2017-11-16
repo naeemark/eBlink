@@ -18,8 +18,8 @@
 
         <RelativeLayout
             android:id="@+id/container_image"
-            android:layout_width="@dimen/width_height_dp"
-            android:layout_height="@dimen/width_height_dp"
+            android:layout_width="@dimen/width_poster_dp"
+            android:layout_height="@dimen/height_poster_dp"
             android:gravity="center">
 
             <ProgressBar
@@ -40,8 +40,8 @@
 
             <ImageView
                 android:id="@+id/imageView_logo"
-                android:layout_width="@dimen/width_height_dp"
-                android:layout_height="@dimen/width_height_dp"
+                android:layout_width="@dimen/width_poster_dp"
+                android:layout_height="@dimen/height_poster_dp"
                 android:contentDescription="@string/lbl_empty"
                 android:padding="@dimen/margin_padding_minimal"
                 android:scaleType="fitCenter"/>
